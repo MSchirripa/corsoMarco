@@ -36,7 +36,7 @@ if (!$link) {
         === (identità, uguaglianza in cui viene verificato anche il tipo di variabile)
         != (diverso)
         !== (non identico)
-        > (mggiore)
+        > (maggiore)
         < (minore)
         >= (maggiore uguale)
         <= (minore uguale)

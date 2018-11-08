@@ -15,8 +15,15 @@ Questo è un file SCSS
 html {font-family: 'Roboto', sans-serif; font-size: 16px}
 
 h2 {
-  font-size: 2rem; }
+  font-size: 2rem; margin-bottom: .5rem; font-weight: 900; }
 
+h2 a{color: #4CAF50;}
+h2 a:hover{color: #ccc;}
+
+
+.subTitle{font-weight: 100;font-size: .8rem; font-style: italic;}
+
+.contentText{font-size: 1rem;font-weight: 400; font-style:normal;}
 /* Bordered form */
 form {
   border: 3px solid #f1f1f1; }

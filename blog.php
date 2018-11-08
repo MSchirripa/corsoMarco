@@ -106,9 +106,8 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
              dove $result sarà la varibile in cui è stata salvata la risorsa e 0 la prima riga della risorsa
              
             */
-//            $i=0;
+
             while($row = mysqli_fetch_assoc($result)){
-//            while($i<10){
                 
                 if (!empty($row['image'])){
                     
@@ -127,9 +126,9 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
                     echo '<div><h2>'.$row['id'].' '.$row['title'].'</h2></div>';
                 }
                 
-                echo 'del '.$row['datecreation'].'<br>';
+                echo '<span class="subTitle">del '.$row['datecreation'].'<span><br>';
                 /*['title'] corrisponde al valore della colonna title in questa riga della risorsa*/
-                echo '<span class="excerpt">'.excerpt($row['content'],'140').'</span>';
+                echo '<span class="contentText">'.excerpt($row['content'],'140').'</span>';
                 /*['content'] corrisponde al valore della colonna content in questa riga della risorsa 
                     la funzione excerpt è spiegata in function.php
                     */
@@ -144,8 +143,6 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
                echo'</article>';
                
             }
-//            $i++;
-//            echo $i;
 
             ?>
         </div>
