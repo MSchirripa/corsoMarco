@@ -41,7 +41,7 @@ echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
  
  */
 
-$query="SELECT id, postType, datecreation, title, content FROM posts
+$query="SELECT id, postType, datecreation, title, content, image FROM posts
         WHERE postType='post' 
         ORDER BY datecreation DESC";
 
@@ -64,10 +64,9 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
 
 
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/scss-style.css">
-    </head>
+    <?php
+    require_once './headFile.php';
+    ?>
     
     <body>
         
@@ -107,16 +106,31 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
              dove $result sarà la varibile in cui è stata salvata la risorsa e 0 la prima riga della risorsa
              
             */
+//            $i=0;
             while($row = mysqli_fetch_assoc($result)){
-                echo'<article>';
-                echo '<h2>'.$row['title'].'</h2>';
+//            while($i<10){
+                
+                if (!empty($row['image'])){
+                    
+                    echo'<article><div style="float:left;"><img src=img/'.$row['image'].' class="avatar"></div>';
+                }
+                else {
+                    echo'<article><div style="float:left;"><img src="https://docs.appthemes.com/files/2011/08/gravatar-grey.jpg" class="avatar"></div>';
+                }
+//                echo'<article><div style="float:left;"><img src='.$row['image'].' style="width:100px;"></div>';
+                echo '<div><h2>'.$row['id'].' '.$row['title'].'</h2> del '.$row['datecreation'].'<br>';
                 /*['title'] corrisponde al valore della colonna title in questa riga della risorsa*/
-                echo '<div class="excerpt">'.excerpt($row['content'],'140').'</div>';
+                echo '<span class="excerpt">'.excerpt($row['content'],'140').'</span>';
                 /*['content'] corrisponde al valore della colonna content in questa riga della risorsa 
                     la funzione excerpt è spiegata in function.php
                     */
+                if (strlen($row['content'])>140){
+                    echo ' <a href="single.php?postid='.$row['id'].'" class="button more">More</a></div>';
+                }
+                else
+                {
                 
-                echo '<a href="single.php?postid='.$row['id'].'" class="button more">More</a>';
+                echo '</div>';
                 //['id']corrisponde al valore della colonna id in questa riga della risorsa 
                 /*
                 mi serve per costruire un link alla pagina dettaglio, nell'url passeremo
@@ -124,7 +138,11 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
                 il parametro verrà usato in una query per individuare un record preciso
                 nella tabella posts
                 */
-               echo'</article>';     
+               echo'</article>';
+               
+            }
+//            $i++;
+//            echo $i;
             }
 
             ?>
@@ -135,7 +153,5 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
 </html>
 
 <?php
-/*
-    Ora proseguite con la pagina single.php
-*/
+
 ?>

@@ -36,7 +36,7 @@ il server salva il suo nome ed il suo valore nell'array $_GET, il valore del par
 disponibile (nello script corrente) e recuperabile tramite il nome.
 */
 
-$query="SELECT id, postType, datecreation, title, content FROM posts
+$query="SELECT id, postType, datecreation, title, content, image FROM posts
         WHERE id='$id'";
 
 // eseguo la query e salvo il risultato in una variabile 
@@ -55,10 +55,9 @@ echo'</pre>';
 
 
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/scss-style.css">
-    </head>
+    <?php
+    require_once './headFile.php';
+    ?>
     
     <body>
         
@@ -81,12 +80,33 @@ echo'</pre>';
                
             while($row = mysqli_fetch_assoc($result)){
                 
-                echo '<h2>'.$row['title'].'</h2>';
-                echo '<div class="postContent">'.$row['content'].'</div>';
+//                echo '<h2>'.$row['title'].'</h2>';
+//                echo '<div class="postContent">'.$row['content'].'</div>';
+//                    
+//            }
+//            
+//            echo'</article>';
+            if (!empty($row['image'])){
                     
+                    echo'<article><div style="float:left;"><img src=img/'.$row['image'].' class="avatarSingle"></div>';
+                }
+                else {
+                    echo'<article><div style="float:left;"><img src="https://docs.appthemes.com/files/2011/08/gravatar-grey.jpg" class="avatarSingle"></div>';
+                }
+
+                echo '<div><h2>'.$row['id'].' '.$row['title'].'</h2>';
+                /*['title'] corrisponde al valore della colonna title in questa riga della risorsa*/
+                echo '<span class="postContent">'.($row['content']).'</span>';
+                echo '</div>';
+                //['id']corrisponde al valore della colonna id in questa riga della risorsa 
+                /*
+                mi serve per costruire un link alla pagina dettaglio, nell'url passeremo
+                il parametro postid che verrà usato dalla pagina single.php
+                il parametro verrà usato in una query per individuare un record preciso
+                nella tabella posts
+                */
+               echo'</article>';     
             }
-            
-            echo'</article>';
             
             ?>
         </div>

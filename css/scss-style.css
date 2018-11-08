@@ -12,6 +12,8 @@ Questo è un file SCSS
     Author     : michelemartinello
 */
 /*SCSS variable*/
+html {font-family: 'Roboto', sans-serif; font-size: 16px}
+
 h2 {
   font-size: 2rem; }
 
@@ -55,13 +57,23 @@ button:hover {
 
 /* Avatar image */
 img.avatar {
-  width: 40%;
-  border-radius: 50%; }
+  width: 100px;
+  border-radius: 50%;
+  padding-right: 112%;
+  margin-right: 10px;}
+
+img.avatarSingle {
+  width: 200px;
+  border-radius: 50%;
+  /*padding-right: 112%;*/
+  margin-right: 10px;}
 
 /* Add padding to containers */
 .container {
   padding: 16px;
   margin: 0 auto; }
+
+.postContent {font-size: 1.2rem; }
 
 /* The "Forgot password" text */
 span.psw {
