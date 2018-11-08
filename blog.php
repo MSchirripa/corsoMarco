@@ -117,20 +117,23 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
                 else {
                     echo'<article><div style="float:left;"><img src="https://docs.appthemes.com/files/2011/08/gravatar-grey.jpg" class="avatar"></div>';
                 }
-//                echo'<article><div style="float:left;"><img src='.$row['image'].' style="width:100px;"></div>';
-                echo '<div><h2>'.$row['id'].' '.$row['title'].'</h2> del '.$row['datecreation'].'<br>';
+                
+                if (strlen($row['content'])>140){
+                    
+                    echo '<div><h2>'.$row['id'].' <a href="single.php?postid='.$row['id'].'">'.$row['title'].'</a></h2></div>';
+                }
+                else
+                {
+                    echo '<div><h2>'.$row['id'].' '.$row['title'].'</h2></div>';
+                }
+                
+                echo 'del '.$row['datecreation'].'<br>';
                 /*['title'] corrisponde al valore della colonna title in questa riga della risorsa*/
                 echo '<span class="excerpt">'.excerpt($row['content'],'140').'</span>';
                 /*['content'] corrisponde al valore della colonna content in questa riga della risorsa 
                     la funzione excerpt è spiegata in function.php
                     */
-                if (strlen($row['content'])>140){
-                    echo ' <a href="single.php?postid='.$row['id'].'" class="button more">More</a></div>';
-                }
-                else
-                {
                 
-                echo '</div>';
                 //['id']corrisponde al valore della colonna id in questa riga della risorsa 
                 /*
                 mi serve per costruire un link alla pagina dettaglio, nell'url passeremo
@@ -143,7 +146,6 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
             }
 //            $i++;
 //            echo $i;
-            }
 
             ?>
         </div>
