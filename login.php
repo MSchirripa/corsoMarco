@@ -178,7 +178,7 @@ mysqli_close($link);
         if(isset($_COOKIE['LOGIN'])){
                     // stampo il bottone bottone di logout
                     echo"<p>Benvenuto ".$_COOKIE['LOGIN']."</p>";
-                    echo'<a href="login.php?logout=yes">Logout</a>';
+                    echo'<a href="login.php?logout=yes" class="bottone"> Logout </a>';
         }
         ?>
         
@@ -202,10 +202,10 @@ mysqli_close($link);
             <img src="img/img_avatar2.png" alt="Avatar" class="avatar">
             </div>    
             <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input type="text" placeholder="Inserisci utente" name="uname" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Inserisci Password" name="psw" required>
 
             <button type="submit">Login</button>
             <label>

@@ -45,7 +45,7 @@ $result=mysqli_query($link,$query);
 
 
 // se $_POST['action'] è uguale a update effettuo l'aggiornamento del record
-if($_POST['action']=='update'){
+if(isset($_POST['action'])=='update'){
     
    // se fosse un solo campo da aggiornare sarebbe sufficiente questa sintassi
    // $queryupdate="UPDATE posts SET title='".$_POST['title']."' WHERE id=".$_POST['id'];
@@ -53,9 +53,9 @@ if($_POST['action']=='update'){
     $queryupdate="UPDATE posts SET  title='".$_POST['title']."', content='".$_POST['content']."' WHERE id=".$_POST['id'];
     echo"QUERY AGGIORNAMENTO $queryupdate";
     mysqli_query($link,$queryupdate);
-    
+//    die('fermo');
    // redirigo su /php/corso/admin/adminPost.php
-    Header('Location: adminPost.php');
+//    Header('Location: adminPost.php');
 }
  
 
@@ -109,24 +109,32 @@ echo'</pre>';
             while($row = mysqli_fetch_assoc($result)){
                     // qui ci sarà il form che mi permetterà di modificare i dati 
                 ?>
-            <form enctype="multipart/form-data" action="/php/corso/admin/updateForm.php" method="post">
-                                 <input type="hidden" name="action" value="update">
-                                 <input type="hidden" name="id" value="<?php echo($row['id']) ?>">
-                                <div class="container"> 
-                                    <?php echo($row['datecreation']); ?>
-                                    <label for="title"><b>Titolo</b></label><br>
-                                    <input type="text"  name="title" style="width:100%"  value="<?php  echo($row['title'])   ?>" required><br>
+            <form enctype="multipart/form-data" action="updateForm.php" method="post">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" value="<?php echo($row['id']) ?>">
+                <div class="container"> 
+                    <?php
 
-                                    <label for="content"><b>Contenuto</b></label><br>
-                                <textarea rows="20" name="content" style="width:100%;" required>
+                 // echo ($row['datecreation']); 
+                    
+                    $dataIta=date_create($row['datecreation']);
+                    echo 'data creazione: <b>'.date_format($dataIta,"d/m/Y").'</b> - ';
+//                    echo date_format(($row['datecreation']),"d/m/Y");
+
+                    ?>  
+                    <label for="title"><b>Titolo</b></label><br>
+                    <input type="text"  name="title" style="width:100%"  value="<?php  echo($row['title'])   ?>" required><br>
+                        
+                    <label for="content"><b>Contenuto</b></label><br>
+                    <textarea rows="20" name="content" style="width:100%;" required>
                                  <?php echo($row['content']) ?>
-                                </textarea><br>
-
-                                <button type="submit">Aggiorna</button><br>
-                                 <button type="button" class="cancelbtn">Cancel</button>
-                                </div>
-                              
-                                </form>
+                    </textarea><br>
+                        
+                    <button type="submit">Aggiorna</button><br>
+                    <button type="button" class="cancelbtn">Cancel</button>
+                </div>
+                    
+            </form>
 
 
 

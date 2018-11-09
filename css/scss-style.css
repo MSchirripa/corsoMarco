@@ -83,6 +83,7 @@ img.avatarSingle {
 
 .postContent {font-size: 1.2rem; }
 
+.bottone{box-shadow: 2px 2px 7px 1px #1C6EA4; padding: 0 10px;}
 /* The "Forgot password" text */
 span.psw {
   display: block;

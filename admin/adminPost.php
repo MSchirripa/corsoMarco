@@ -130,7 +130,8 @@ mysqli_close($link);// finito le operazioni chiudo la connessione
             while($row = mysqli_fetch_assoc($result)){
                 echo'<article>';
                 echo '<h2>'.$row['title'].'</h2>';
-                echo'<div class="date">data di creazione'.$row['datecreation'].'</div>';
+                $dataIta=date_create($row['datecreation']);
+                echo '<div class="date">data creazione: <b>'.date_format($dataIta,"d/m/Y").'</b></div>';
                 /*['title'] corrisponde al valore della colonna title in questa riga della risorsa*/
                 echo '<div class="excerpt">'.excerpt($row['content'],'140').'</div>';
                 /*['content'] corrisponde al valore della colonna content in questa riga della risorsa 
