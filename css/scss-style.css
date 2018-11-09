@@ -66,8 +66,9 @@ button:hover {
 img.avatar {
   width: 100px;
   border-radius: 50%;
-  padding-right: 112%;
-  margin-right: 10px;}
+/*  padding-right: 112%;
+  margin-right: 10px;*/
+}
 
 img.avatarSingle {
   width: 200px;
