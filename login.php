@@ -20,16 +20,23 @@ require_once('functions.php');// ancora? Che palle...
 Se viene inviato il parametro logout=yes distruggo il cookie
 lo faccio qui perchè setcookie va fatto prima di qualsiasi output a schermo
 */
-if($_GET['logout']=='yes'){
-    setcookie("LOGIN", "", time()-3600);
+if(isset($_GET['logout'])&&($_GET['logout']=='yes')){
+    setcookie("LOGIN", "", time()-3600);  // serve per distruggere il cookie
     // al prossimo ricaricamento di pagina il cookie non esiterà più
     // è necessario forzare il ricaricamento della pagina per non vederlo più
     
-    Header('Location: login.php');
+    Header('Location: login.php');  //costruttore di redirect in php. la pagina potrà essere qualunque
 }
 
 
 ?>
+<?php // valori di default
+    $errorMessage='';
+    $userName='';
+    $myPassword='';
+    
+?>
+
 
 <?php
 // ## ESERCIZIO ##, trasformare la procedura di connessione in funzione, è sempre la stessa in tutte le pagine
@@ -91,16 +98,28 @@ echo'<pre>COOKIE<br>';
 print_r($_COOKIE);
 echo'</pre>';
 
-if(!$_COOKIE['LOGIN']){
+if(!isset($_COOKIE['LOGIN'])){
     /*
     Se il cookie non esiste (!$_COOKIE) esegui la procedura tra le graffe
     
     ricevo i dati dal form e li uso per costruire la query che identificherà un utente
     dalla coppia username e password
     */
-    $userName=$_POST['uname']; // i valori andrebbero sanitizzati
-    $myPassword=$_POST['psw'];
     
+    if(isset($_POST['uname'])){
+        $userName=$_POST['uname']; 
+    }
+     if(isset($_POST['psw'])){
+        $myPassword=$_POST['psw'];
+     }
+//    echo '<pre>';
+//     print_r($myPassword);
+//    echo '</pre>';
+//    
+//        echo '<pre>';
+//     print_r($userName);
+//    echo '</pre>';
+     
     $query="SELECT * FROM users WHERE username='$userName' AND password='$myPassword' AND active='1'";
     
     /*
@@ -136,7 +155,7 @@ if(!$_COOKIE['LOGIN']){
        // se non trovo alcuna riga le credenziali sono sbagliate, dovrò stampare un messaggio
         
         // il messaggio verrà creato solo se ho effettivamente inviato il form
-        if(($_POST['uname']!='')&&($_POST['psw'])){
+        if((isset($_POST['psw']))&&(isset($_POST['uname']))&&($_POST['uname']!='')&&($_POST['psw']!='')){
             $errorMessage="<p class='error'>Le credenziali sono errate</p>"; 
         }
        
@@ -170,12 +189,12 @@ mysqli_close($link);
         <div class="content">
             <?php
             echo"$errorMessage";
-            //echo"$query";
+//            echo"$query";
             
             
                 // il form verrà stampato solo se NON esiste il cookies
                 // e se fallisce il login
-                if(!$_COOKIE['LOGIN']||$errorMessage!=''){ // qui apro la graffa, la chiuderò alla fine del form
+                if(!isset($_COOKIE['LOGIN'])||$errorMessage!=''){ // qui apro la graffa, la chiuderò alla fine del form
             ?>
             <form enctype="multipart/form-data" action="login.php" method="post">
             <div class="container">
